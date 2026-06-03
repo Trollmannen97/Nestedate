@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dateinvitasjon til Sara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero-screen" id="heroScreen" aria-label="Startsporsmal">
+        <div class="floating-detail detail-one">🐾</div>
+        <div class="floating-detail detail-two">💕</div>
+        <div class="floating-detail detail-three">💪</div>
+
+        <div class="question-panel">
+          <div class="panel-topline"></div>
+          <div class="progress-dots" aria-hidden="true">
+            <span class="is-active"></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="screen-emoji">💌</div>
+          <h1>Vil du ha en ny date med meg? 💕</h1>
+          <p class="panel-copy">
+            bare ett lite spørsmål. jeg er helt rolig. nesten.
+          </p>
+          <div class="answer-row" id="answerRow">
+            <button class="btn btn-yes" id="yesButton" type="button">Ja</button>
+            <button class="btn btn-no" id="noButton" type="button">Nei</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="date-content" id="dateContent" aria-live="polite">
+        <div class="panel-topline"></div>
+        <div class="progress-dots" aria-hidden="true">
+          <span class="is-active"></span>
+          <span class="is-active"></span>
+          <span></span>
+        </div>
+        <div class="content-header">
+          <div class="screen-emoji">🎉</div>
+          <h2>Vent, du sa ja?? okay okay okay</h2>
+          <p>
+            Bare en ting til, Sara. Hva er den perfekte neste daten?
+            Jeg planlegger definitivt ikke allerede.
+          </p>
+        </div>
+
+        <div class="date-grid" aria-label="Dateforslag">
+          <button
+            class="date-card"
+            type="button"
+            data-title="Helgedate hos meg"
+            data-message="Godt valg! Jeg lover koselig stemning, snacks og god plass på sofaen 💗"
+          >
+            <span class="card-icon">🏡</span>
+            <span class="card-title">Helgedate hos meg</span>
+            <span class="card-copy">Myk sofa, snacks og null stress.</span>
+          </button>
+
+          <button
+            class="date-card"
+            type="button"
+            data-title="Gå tur og spise is i Tønsberg"
+            data-message="Perfekt! Litt frisk luft, god mat og godt selskap høres ganske farlig bra ut 🐾"
+          >
+            <span class="card-icon">🍦</span>
+            <span class="card-title">Gå tur og spise is i Tønsberg</span>
+            <span class="card-copy">Veterinærvennlig poteenergi og frisk luft.</span>
+          </button>
+
+          <button
+            class="date-card"
+            type="button"
+            data-title="Jeg lager middag til deg"
+            data-message="Da må jeg virkelig imponere. Du får velge om det blir romantisk, sporty eller bare veldig godt 🍝"
+          >
+            <span class="card-icon">🍝</span>
+            <span class="card-title">Jeg lager middag til deg</span>
+            <span class="card-copy">Du velger vibe, jeg fikser maten.</span>
+          </button>
+
+          <button
+            class="date-card"
+            type="button"
+            data-title="Filmkveld"
+            data-message="Sterkt valg. Du velger film, jeg fikser snacks, og vi later som vi ikke bruker halve kvelden på å velge 🍿"
+          >
+            <span class="card-icon">🎬</span>
+            <span class="card-title">Filmkveld</span>
+            <span class="card-copy">Snacks, teppe og litt for god stemning.</span>
+          </button>
+
+          <button
+            class="date-card"
+            type="button"
+            data-title="Spill og kortspill"
+            data-message="Dette kan bli farlig gøy. Jeg lover å være sjarmerende selv om jeg taper, og ekstra sjarmerende hvis jeg vinner 🃏"
+          >
+            <span class="card-icon">🃏</span>
+            <span class="card-title">Spill og kortspill</span>
+            <span class="card-copy">Litt konkurranse, mye latter.</span>
+          </button>
+        </div>
+
+        <div class="response-box" id="responseBox">
+          Velg et kort, så kommer planen til live ✨
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-overlay" id="dateModal" aria-hidden="true">
+      <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dateModalTitle"
+      >
+        <button class="modal-close" id="closeModal" type="button" aria-label="Lukk">
+          ×
+        </button>
+        <div class="panel-topline"></div>
+        <div class="progress-dots" aria-hidden="true">
+          <span class="is-active"></span>
+          <span class="is-active"></span>
+          <span class="is-active"></span>
+        </div>
+
+        <section class="date-picker" id="datePicker" aria-label="Velg dato">
+          <div>
+            <div class="screen-emoji">📅</div>
+            <h3 id="dateModalTitle">Nydelig. Når er du ledig?</h3>
+            <p>
+              Jeg omrokker kalenderen mens vi snakker. Velg en dato, så tar jeg
+              resten.
+            </p>
+          </div>
+
+          <label class="custom-date">
+            <span>Velg dato</span>
+            <input id="customDate" type="date" />
+          </label>
+        </section>
+
+        <section class="summary-card" id="summaryCard" aria-live="polite">
+          <div class="screen-emoji">🥳</div>
+          <h3>Det er en date!!</h3>
+          <dl>
+            <div>
+              <dt>Date</dt>
+              <dd id="summaryPlan">Ikke valgt ennå</dd>
+            </div>
+            <div>
+              <dt>Dato</dt>
+              <dd id="summaryDate">Ikke valgt ennå</dd>
+            </div>
+            <div>
+              <dt>Viktig detalj</dt>
+              <dd>Godt selskap, litt flørt og bonuspoeng for smil.</dd>
+            </div>
+          </dl>
+          <p class="summary-note">
+            Ses der. Denne planen er emosjonelt bindende, bare sa det 🥰
+          </p>
+          <a class="sms-button" id="smsButton" href="sms:?&body=">
+            Send svaret på SMS 💌
+          </a>
+          <button class="start-over" id="startOver" type="button">Start over</button>
+        </section>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
