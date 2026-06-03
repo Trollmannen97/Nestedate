@@ -7,7 +7,9 @@ const responseBox = document.querySelector("#responseBox");
 const dateCards = document.querySelectorAll(".date-card");
 const dateModal = document.querySelector("#dateModal");
 const modalCard = document.querySelector(".modal-card");
-const customDate = document.querySelector("#customDate");
+const dateDay = document.querySelector("#dateDay");
+const dateMonth = document.querySelector("#dateMonth");
+const dateYear = document.querySelector("#dateYear");
 const confirmDate = document.querySelector("#confirmDate");
 const closeModal = document.querySelector("#closeModal");
 const summaryCard = document.querySelector("#summaryCard");
@@ -147,36 +149,42 @@ function closeDateModal() {
 
 function setupDateInput() {
   const today = new Date();
-  customDate.min = getCustomDateMin(today);
+  const minDate = getCustomDateMin(today);
+  const maxDate =
+    selectedPlan === weekendAtMineTitle ? weekendAtMineDates.at(-1) : null;
+  const years = getAvailableYears(minDate, maxDate);
+  const months = getAvailableMonths(minDate, maxDate);
 
-  if (selectedPlan === weekendAtMineTitle) {
-    customDate.max = formatInputDate(weekendAtMineDates.at(-1));
-  } else {
-    customDate.removeAttribute("max");
-  }
+  fillSelect(dateYear, "År", years);
+  fillSelect(dateMonth, "Måned", months);
+  fillSelect(dateDay, "Dag", []);
 }
 
 function getCustomDateMin(today) {
   if (selectedPlan === weekendAtMineTitle) {
-    return formatInputDate(weekendAtMineDates[0]);
+    return weekendAtMineDates[0];
   }
 
-  return formatInputDate(today);
+  return today;
 }
 
 function chooseCustomDate() {
-  if (!customDate.value) {
-    customDate.reportValidity();
+  if (!dateDay.value || !dateMonth.value || !dateYear.value) {
+    reportMissingDateField();
     return;
   }
 
-  if (!customDate.validity.valid) {
-    customDate.reportValidity();
+  const date = new Date(
+    Number(dateYear.value),
+    Number(dateMonth.value) - 1,
+    Number(dateDay.value),
+  );
+
+  if (!isAllowedDate(date)) {
+    reportMissingDateField();
     return;
   }
 
-  const [year, month, day] = customDate.value.split("-").map(Number);
-  const date = new Date(year, month - 1, day);
   selectedDate = formatDisplayDate(date);
 
   updateSummary();
@@ -184,9 +192,97 @@ function chooseCustomDate() {
 
 function resetDateChoice() {
   selectedDate = "";
-  customDate.value = "";
+  dateDay.value = "";
+  dateMonth.value = "";
+  dateYear.value = "";
   modalCard.classList.remove("is-summary-step");
   summaryCard.classList.remove("is-visible");
+}
+
+function fillSelect(select, placeholder, values) {
+  select.innerHTML = "";
+  select.append(new Option(placeholder, ""));
+
+  values.forEach((value) => {
+    select.append(new Option(value.label, value.value));
+  });
+}
+
+function getAvailableYears(minDate, maxDate) {
+  const startYear = minDate.getFullYear();
+  const endYear = maxDate?.getFullYear() ?? startYear + 1;
+  const years = [];
+
+  for (let year = startYear; year <= endYear; year += 1) {
+    years.push({ label: year, value: year });
+  }
+
+  return years;
+}
+
+function getAvailableMonths(minDate, maxDate) {
+  if (selectedPlan === weekendAtMineTitle) {
+    return [{ label: "Juni", value: 6 }];
+  }
+
+  return Array.from({ length: 12 }, (_, index) => {
+    const month = index + 1;
+    const date = new Date(2026, index, 1);
+
+    return {
+      label: new Intl.DateTimeFormat("no-NO", { month: "long" }).format(date),
+      value: month,
+    };
+  }).filter((month) => {
+    if (!maxDate) {
+      return true;
+    }
+
+    return month.value >= minDate.getMonth() + 1 && month.value <= maxDate.getMonth() + 1;
+  });
+}
+
+function updateDayOptions() {
+  const year = Number(dateYear.value);
+  const month = Number(dateMonth.value);
+
+  if (!year || !month) {
+    fillSelect(dateDay, "Dag", []);
+    return;
+  }
+
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const days = [];
+
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    const date = new Date(year, month - 1, day);
+
+    if (isAllowedDate(date)) {
+      days.push({ label: day, value: day });
+    }
+  }
+
+  fillSelect(dateDay, "Dag", days);
+}
+
+function isAllowedDate(date) {
+  const minDate = getCustomDateMin(new Date());
+  const maxDate =
+    selectedPlan === weekendAtMineTitle ? weekendAtMineDates.at(-1) : null;
+
+  return date >= startOfDay(minDate) && (!maxDate || date <= startOfDay(maxDate));
+}
+
+function startOfDay(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function reportMissingDateField() {
+  const firstMissingField = [dateDay, dateMonth, dateYear].find(
+    (field) => !field.value,
+  );
+
+  (firstMissingField ?? dateDay).reportValidity();
 }
 
 function resetToStart() {
@@ -225,14 +321,6 @@ function buildSmsLink() {
   return `sms:${smsRecipient}?&body=${encodeURIComponent(message)}`;
 }
 
-function formatShortDate(date) {
-  return new Intl.DateTimeFormat("no-NO", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  }).format(date);
-}
-
 function formatDisplayDate(date) {
   return new Intl.DateTimeFormat("no-NO", {
     weekday: "long",
@@ -240,14 +328,6 @@ function formatDisplayDate(date) {
     month: "long",
     year: "numeric",
   }).format(date);
-}
-
-function formatInputDate(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
 }
 
 window.addEventListener("load", placeNoButtonAtStart);
@@ -296,6 +376,8 @@ dateCards.forEach((card) => {
 });
 
 confirmDate.addEventListener("click", chooseCustomDate);
+dateMonth.addEventListener("change", updateDayOptions);
+dateYear.addEventListener("change", updateDayOptions);
 startOver.addEventListener("click", resetToStart);
 
 setupDateInput();

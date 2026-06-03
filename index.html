@@ -74,7 +74,7 @@
           >
             <span class="card-icon">🍦</span>
             <span class="card-title">Gå tur og spise is i Tønsberg</span>
-            <span class="card-copy">Veterinærvennlig poteenergi og frisk luft.</span>
+            <span class="card-copy">Flørtning, is og god stemning.</span>
           </button>
 
           <button
@@ -144,10 +144,23 @@
             </p>
           </div>
 
-          <label class="custom-date">
+          <div class="custom-date">
             <span>Velg dato</span>
-            <input id="customDate" type="date" required />
-          </label>
+            <div class="date-selects">
+              <label>
+                <span>Dag</span>
+                <select id="dateDay" required></select>
+              </label>
+              <label>
+                <span>Måned</span>
+                <select id="dateMonth" required></select>
+              </label>
+              <label>
+                <span>År</span>
+                <select id="dateYear" required></select>
+              </label>
+            </div>
+          </div>
           <button class="confirm-date" id="confirmDate" type="button">
             Bekreft dato 💕
           </button>
