@@ -1,17 +1,17 @@
 :root {
-  --bg: #141126;
-  --panel: rgba(45, 39, 78, 0.82);
-  --panel-strong: rgba(59, 50, 96, 0.92);
-  --line: rgba(255, 209, 236, 0.2);
-  --line-strong: rgba(255, 181, 224, 0.58);
-  --text: #fff8e8;
-  --muted: #d9cde9;
-  --pink: #ff66c7;
-  --pink-hot: #ff37b7;
-  --pink-soft: #ffb8df;
-  --cream: #fff7ca;
-  --mint: #9fffd7;
-  --shadow: 0 34px 90px rgba(9, 5, 24, 0.56);
+  --bg: #fff0f7;
+  --panel: rgba(255, 230, 242, 0.88);
+  --panel-strong: rgba(255, 218, 237, 0.94);
+  --line: rgba(208, 82, 145, 0.2);
+  --line-strong: rgba(231, 92, 161, 0.58);
+  --text: #5d2946;
+  --muted: #8d5c78;
+  --pink: #ff7fbd;
+  --pink-hot: #ff4fa8;
+  --pink-soft: #d94f92;
+  --cream: #fff3b8;
+  --mint: #00000;
+  --shadow: 0 30px 80px rgba(210, 82, 146, 0.24);
 }
 
 * {
@@ -25,9 +25,10 @@ body {
   font-family: "Fredoka", "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   background:
-    radial-gradient(circle at 18% 12%, rgba(255, 102, 199, 0.25), transparent 28%),
-    radial-gradient(circle at 82% 76%, rgba(159, 255, 215, 0.16), transparent 28%),
-    linear-gradient(145deg, #0f0c1d 0%, #201a3c 48%, #151127 100%);
+    radial-gradient(circle at 18% 12%, rgba(255, 127, 189, 0.34), transparent 28%),
+    radial-gradient(circle at 82% 76%, rgba(189, 248, 220, 0.42), transparent 28%),
+    radial-gradient(circle at 72% 18%, rgba(255, 243, 184, 0.42), transparent 24%),
+    linear-gradient(145deg, #fff7fb 0%, #ffddea 48%, #f4fff8 100%);
   overflow-x: hidden;
 }
 
@@ -91,8 +92,8 @@ button {
     var(--panel);
   box-shadow:
     var(--shadow),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 0 42px rgba(255, 55, 183, 0.13);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 0 42px rgba(255, 127, 189, 0.16);
 }
 
 .question-panel {
@@ -109,7 +110,7 @@ button {
   height: 7px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--pink-hot), var(--cream), var(--mint));
-  box-shadow: 0 0 22px rgba(255, 102, 199, 0.58);
+  box-shadow: 0 0 22px rgba(255, 127, 189, 0.58);
 }
 
 .progress-dots {
@@ -128,13 +129,13 @@ button {
 
 .progress-dots span.is-active {
   background: var(--pink);
-  box-shadow: 0 0 16px rgba(255, 102, 199, 0.84);
+  box-shadow: 0 0 16px rgba(255, 127, 189, 0.78);
 }
 
 .screen-emoji {
   margin-bottom: 10px;
   font-size: clamp(1.75rem, 4vw, 2.45rem);
-  filter: drop-shadow(0 0 12px rgba(255, 102, 199, 0.45));
+  filter: drop-shadow(0 0 12px rgba(255, 127, 189, 0.42));
 }
 
 .eyebrow {
@@ -209,14 +210,14 @@ h3 {
 
 .btn-yes {
   color: white;
-  background: linear-gradient(135deg, #ff58cc, #8f28ff);
-  box-shadow: 0 0 32px rgba(255, 55, 183, 0.46);
+  background: linear-gradient(135deg, #ff7fbd, #f04c9b);
+  box-shadow: 0 0 32px rgba(240, 76, 155, 0.36);
 }
 
 .btn-yes:hover,
 .btn-yes:focus-visible {
   transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 0 44px rgba(255, 55, 183, 0.72);
+  box-shadow: 0 0 44px rgba(240, 76, 155, 0.52);
 }
 
 .btn-no {
@@ -227,7 +228,7 @@ h3 {
   border-color: rgba(255, 135, 148, 0.78);
   box-shadow:
     0 0 28px rgba(255, 59, 79, 0.48),
-    0 18px 38px rgba(7, 4, 18, 0.28);
+    0 18px 38px rgba(176, 0, 32, 0.18);
 }
 
 .btn-no.is-dodging {
@@ -241,8 +242,8 @@ h3 {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 28px rgba(255, 102, 199, 0.22);
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: 0 0 28px rgba(255, 127, 189, 0.22);
   font-size: 1.7rem;
   animation: float 5s ease-in-out infinite;
 }
@@ -298,10 +299,10 @@ h3 {
 
 .date-card {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.065);
+  background: rgba(255, 255, 255, 0.48);
   border: 1px solid var(--line);
   border-radius: 22px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
   cursor: pointer;
   transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease,
     background 190ms ease;
@@ -322,8 +323,8 @@ h3 {
 .date-card.is-selected {
   transform: translateY(-4px);
   border-color: var(--pink-soft);
-  background: rgba(255, 102, 199, 0.12);
-  box-shadow: 0 0 26px rgba(255, 102, 199, 0.28);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 26px rgba(255, 127, 189, 0.24);
 }
 
 .date-card.is-selected {
@@ -331,7 +332,7 @@ h3 {
   border-color: var(--cream);
   box-shadow:
     0 0 28px rgba(255, 247, 202, 0.28),
-    0 0 34px rgba(255, 102, 199, 0.24);
+    0 0 34px rgba(255, 127, 189, 0.22);
 }
 
 .card-icon {
@@ -359,7 +360,7 @@ h3 {
   margin-top: 14px;
   padding: 12px 14px;
   color: var(--pink-soft);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.45);
   border: 1px solid var(--line);
   border-radius: 20px;
   font-size: 0.9rem;
@@ -378,7 +379,7 @@ h3 {
   display: grid;
   place-items: center;
   padding: 18px;
-  background: rgba(7, 4, 18, 0.68);
+  background: rgba(91, 35, 69, 0.28);
   opacity: 0;
   pointer-events: none;
   backdrop-filter: blur(12px);
@@ -420,7 +421,7 @@ h3 {
   height: 42px;
   place-items: center;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.56);
   border: 1px solid var(--line);
   border-radius: 50%;
   cursor: pointer;
@@ -433,7 +434,7 @@ h3 {
 .modal-close:hover,
 .modal-close:focus-visible {
   transform: rotate(8deg) scale(1.06);
-  box-shadow: 0 0 22px rgba(255, 102, 199, 0.32);
+  box-shadow: 0 0 22px rgba(255, 127, 189, 0.3);
 }
 
 .date-picker,
@@ -465,7 +466,7 @@ h3 {
   min-height: 62px;
   padding: 0 18px;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.66);
   border: 1px solid var(--line-strong);
   border-radius: 18px;
   font: inherit;
@@ -474,7 +475,7 @@ h3 {
 }
 
 .custom-date input:focus {
-  outline: 3px solid rgba(255, 102, 199, 0.22);
+  outline: 3px solid rgba(255, 127, 189, 0.24);
   border-color: var(--pink);
 }
 
@@ -482,7 +483,7 @@ h3 {
   display: none;
   margin-top: 0;
   padding: clamp(18px, 3vw, 24px);
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.48);
   border: 1px solid var(--line);
   border-radius: 24px;
 }
@@ -514,8 +515,8 @@ h3 {
   gap: 12px;
   padding: 14px 16px;
   text-align: left;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid rgba(208, 82, 145, 0.16);
   border-radius: 16px;
 }
 
@@ -548,9 +549,9 @@ h3 {
   padding: 0 20px;
   color: white;
   text-decoration: none;
-  background: linear-gradient(135deg, #ff58cc, #8f28ff);
+  background: linear-gradient(135deg, #ff7fbd, #f04c9b);
   border-radius: 999px;
-  box-shadow: 0 0 28px rgba(255, 55, 183, 0.34);
+  box-shadow: 0 0 28px rgba(240, 76, 155, 0.28);
   font-weight: 800;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
@@ -558,7 +559,7 @@ h3 {
 .sms-button:hover,
 .sms-button:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 0 38px rgba(255, 55, 183, 0.52);
+  box-shadow: 0 0 38px rgba(240, 76, 155, 0.42);
 }
 
 .start-over {
@@ -566,7 +567,7 @@ h3 {
   margin-left: 8px;
   padding: 10px 16px;
   color: var(--pink-soft);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.5);
   border: 1px solid var(--line);
   border-radius: 999px;
   cursor: pointer;
@@ -580,7 +581,7 @@ h3 {
 .start-over:focus-visible {
   transform: translateY(-2px);
   border-color: var(--pink-soft);
-  box-shadow: 0 0 18px rgba(255, 102, 199, 0.22);
+  box-shadow: 0 0 18px rgba(255, 127, 189, 0.22);
 }
 
 @keyframes float {

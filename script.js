@@ -72,7 +72,11 @@ function moveNoButton() {
   noButton.classList.add("is-dodging");
 }
 
-function setNoButtonPosition(left, top, buttonRect = noButton.getBoundingClientRect()) {
+function setNoButtonPosition(
+  left,
+  top,
+  buttonRect = noButton.getBoundingClientRect(),
+) {
   const bounds = getNoButtonBounds(buttonRect);
 
   noButton.style.left = `${clamp(left, bounds.minLeft, bounds.maxLeft)}px`;
@@ -92,25 +96,19 @@ function randomBetween(min, max) {
 function getNoButtonBounds(buttonRect) {
   const viewportWidth = Math.min(
     window.innerWidth,
-    document.documentElement.clientWidth || window.innerWidth
+    document.documentElement.clientWidth || window.innerWidth,
   );
   const viewportHeight = Math.min(
     window.innerHeight,
-    document.documentElement.clientHeight || window.innerHeight
+    document.documentElement.clientHeight || window.innerHeight,
   );
   const padding = 72;
 
   return {
     minLeft: padding,
-    maxLeft: Math.max(
-      padding,
-      viewportWidth - buttonRect.width - padding
-    ),
+    maxLeft: Math.max(padding, viewportWidth - buttonRect.width - padding),
     minTop: padding,
-    maxTop: Math.max(
-      padding,
-      viewportHeight - buttonRect.height - padding
-    ),
+    maxTop: Math.max(padding, viewportHeight - buttonRect.height - padding),
   };
 }
 
@@ -220,7 +218,7 @@ function updateSummary() {
 }
 
 function buildSmsLink() {
-  const message = `Jeg velger ${selectedPlan} den ${selectedDate} 🥰`;
+  const message = `Hei, jeg har tatt en veldig viktig avgjørelse: ${selectedPlan} den ${selectedDate}. Du kan begynne å glede deg nå 🥰`;
 
   return `sms:${smsRecipient}?&body=${encodeURIComponent(message)}`;
 }
