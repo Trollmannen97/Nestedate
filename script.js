@@ -8,6 +8,7 @@ const dateCards = document.querySelectorAll(".date-card");
 const dateModal = document.querySelector("#dateModal");
 const modalCard = document.querySelector(".modal-card");
 const customDate = document.querySelector("#customDate");
+const confirmDate = document.querySelector("#confirmDate");
 const closeModal = document.querySelector("#closeModal");
 const summaryCard = document.querySelector("#summaryCard");
 const summaryPlan = document.querySelector("#summaryPlan");
@@ -165,6 +166,7 @@ function getCustomDateMin(today) {
 
 function chooseCustomDate() {
   if (!customDate.value) {
+    customDate.reportValidity();
     return;
   }
 
@@ -293,7 +295,7 @@ dateCards.forEach((card) => {
   });
 });
 
-customDate.addEventListener("change", chooseCustomDate);
+confirmDate.addEventListener("click", chooseCustomDate);
 startOver.addEventListener("click", resetToStart);
 
 setupDateInput();
