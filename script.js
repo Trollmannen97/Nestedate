@@ -15,11 +15,15 @@ const summaryPlan = document.querySelector("#summaryPlan");
 const summaryDate = document.querySelector("#summaryDate");
 const smsButton = document.querySelector("#smsButton");
 const startOver = document.querySelector("#startOver");
+const easterBubble = document.querySelector("#easterBubble");
+const easterClose = document.querySelector("#easterClose");
 
 let noButtonReady = false;
 let selectedPlan = "";
 let selectedDate = "";
+let typedKeys = "";
 const smsRecipient = "";
+const easterCode = "hett";
 
 const weekendAtMineTitle = "Helgedate hos meg";
 const weekendAtMineDates = [
@@ -225,6 +229,14 @@ function buildSmsLink() {
   return `sms:${smsRecipient}?&body=${encodeURIComponent(message)}`;
 }
 
+function showEasterBubble() {
+  easterBubble.classList.add("is-visible");
+}
+
+function closeEasterBubble() {
+  easterBubble.classList.remove("is-visible");
+}
+
 function formatDisplayDate(date) {
   return new Intl.DateTimeFormat("no-NO", {
     weekday: "long",
@@ -269,6 +281,17 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && dateModal.classList.contains("is-visible")) {
     closeDateModal();
   }
+
+  if (event.key.length !== 1) {
+    return;
+  }
+
+  typedKeys = `${typedKeys}${event.key.toLowerCase()}`.slice(-easterCode.length);
+
+  if (typedKeys === easterCode) {
+    showEasterBubble();
+    typedKeys = "";
+  }
 });
 
 dateCards.forEach((card) => {
@@ -289,5 +312,6 @@ dateCards.forEach((card) => {
 
 confirmDate.addEventListener("click", chooseCustomDate);
 startOver.addEventListener("click", resetToStart);
+easterClose.addEventListener("click", closeEasterBubble);
 
 setupDateInput();
