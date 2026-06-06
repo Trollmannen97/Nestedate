@@ -288,10 +288,11 @@ document.addEventListener("keydown", (event) => {
 
   typedKeys = `${typedKeys}${event.key.toLowerCase()}`.slice(-easterCode.length);
 
-  if (typedKeys === easterCode) {
+  if (typedKeys.endsWith(easterCode)) {
     showEasterBubble();
     typedKeys = "";
   }
+
 });
 
 dateCards.forEach((card) => {
