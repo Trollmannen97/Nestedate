@@ -669,6 +669,10 @@ h3 {
   transform: translate(-50%, -50%) scale(1);
 }
 
+.second-easter-bubble {
+  z-index: 41;
+}
+
 @keyframes float {
   0%,
   100% {

@@ -17,6 +17,8 @@ const smsButton = document.querySelector("#smsButton");
 const startOver = document.querySelector("#startOver");
 const easterBubble = document.querySelector("#easterBubble");
 const easterClose = document.querySelector("#easterClose");
+const secondEasterBubble = document.querySelector("#secondEasterBubble");
+const secondEasterClose = document.querySelector("#secondEasterClose");
 
 let noButtonReady = false;
 let selectedPlan = "";
@@ -24,6 +26,11 @@ let selectedDate = "";
 let typedKeys = "";
 const smsRecipient = "";
 const easterCode = "hett";
+const secondEasterCode = "kåt";
+const maxEasterCodeLength = Math.max(
+  easterCode.length,
+  secondEasterCode.length,
+);
 
 const weekendAtMineTitle = "Helgedate hos meg";
 const weekendAtMineDates = [
@@ -237,6 +244,14 @@ function closeEasterBubble() {
   easterBubble.classList.remove("is-visible");
 }
 
+function showSecondEasterBubble() {
+  secondEasterBubble.classList.add("is-visible");
+}
+
+function closeSecondEasterBubble() {
+  secondEasterBubble.classList.remove("is-visible");
+}
+
 function formatDisplayDate(date) {
   return new Intl.DateTimeFormat("no-NO", {
     weekday: "long",
@@ -286,13 +301,19 @@ document.addEventListener("keydown", (event) => {
     return;
   }
 
-  typedKeys = `${typedKeys}${event.key.toLowerCase()}`.slice(-easterCode.length);
+  typedKeys = `${typedKeys}${event.key.toLowerCase()}`
+    .normalize("NFC")
+    .slice(-maxEasterCodeLength);
 
   if (typedKeys.endsWith(easterCode)) {
     showEasterBubble();
     typedKeys = "";
   }
 
+  if (typedKeys.endsWith(secondEasterCode)) {
+    showSecondEasterBubble();
+    typedKeys = "";
+  }
 });
 
 dateCards.forEach((card) => {
@@ -314,5 +335,6 @@ dateCards.forEach((card) => {
 confirmDate.addEventListener("click", chooseCustomDate);
 startOver.addEventListener("click", resetToStart);
 easterClose.addEventListener("click", closeEasterBubble);
+secondEasterClose.addEventListener("click", closeSecondEasterBubble);
 
 setupDateInput();
