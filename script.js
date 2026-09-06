@@ -1,8 +1,10 @@
 const heroScreen = document.querySelector("#heroScreen");
 const dateContent = document.querySelector("#dateContent");
+const datesSummary = document.querySelector("#datesSummary");
 const yesButton = document.querySelector("#yesButton");
 const noButton = document.querySelector("#noButton");
 const answerRow = document.querySelector("#answerRow");
+const summaryTrigger = document.querySelector("#summaryTrigger");
 const responseBox = document.querySelector("#responseBox");
 const dateCards = document.querySelectorAll(".date-card");
 const dateModal = document.querySelector("#dateModal");
@@ -19,6 +21,7 @@ const easterBubble = document.querySelector("#easterBubble");
 const easterClose = document.querySelector("#easterClose");
 const secondEasterBubble = document.querySelector("#secondEasterBubble");
 const secondEasterClose = document.querySelector("#secondEasterClose");
+const summaryBack = document.querySelector("#summaryBack");
 
 let noButtonReady = false;
 let selectedPlan = "";
@@ -133,6 +136,7 @@ function showDateOptions() {
 
   window.setTimeout(() => {
     heroScreen.style.display = "none";
+    dateContent.style.display = "";
     dateContent.classList.add("is-visible");
   }, 420);
 }
@@ -210,6 +214,7 @@ function resetToStart() {
   });
 
   responseBox.textContent = "Velg et kort, så kommer planen til live ✨";
+  datesSummary.classList.remove("is-visible");
   dateContent.classList.remove("is-visible");
   dateContent.style.display = "none";
   heroScreen.style.display = "";
@@ -252,6 +257,25 @@ function closeSecondEasterBubble() {
   secondEasterBubble.classList.remove("is-visible");
 }
 
+function openSummaryPage() {
+  heroScreen.classList.add("is-hidden");
+
+  window.setTimeout(() => {
+    heroScreen.style.display = "none";
+    dateContent.classList.remove("is-visible");
+    dateContent.style.display = "none";
+    datesSummary.classList.add("is-visible");
+  }, 260);
+}
+
+function closeSummaryPage() {
+  datesSummary.classList.remove("is-visible");
+  heroScreen.style.display = "";
+  heroScreen.classList.remove("is-hidden");
+  noButtonReady = false;
+  window.setTimeout(placeNoButtonAtStart, 0);
+}
+
 function formatDisplayDate(date) {
   return new Intl.DateTimeFormat("no-NO", {
     weekday: "long",
@@ -284,6 +308,8 @@ noButton.addEventListener("click", (event) => {
 });
 
 yesButton.addEventListener("click", showDateOptions);
+summaryTrigger.addEventListener("click", openSummaryPage);
+summaryBack.addEventListener("click", closeSummaryPage);
 
 closeModal.addEventListener("click", closeDateModal);
 dateModal.addEventListener("click", (event) => {
@@ -295,6 +321,10 @@ dateModal.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && dateModal.classList.contains("is-visible")) {
     closeDateModal();
+  }
+
+  if (event.key === "Escape" && datesSummary.classList.contains("is-visible")) {
+    closeSummaryPage();
   }
 
   if (event.key.length !== 1) {
